@@ -1,0 +1,18 @@
+FARMER SATHI — UPDATED PROJECT
+
+1. Download and extract Farmer-Sathi-Updated.zip.
+2. Open VS Code > File > Open Folder > choose the Farmer-Sathi folder.
+3. Install the Live Server extension if needed (Ctrl+Shift+X, search Live Server).
+4. Right-click index.html > Open with Live Server.
+
+Features:
+- Header tabs open one page/section at a time.
+- Marathi / Hindi / English language button.
+- Season-wise crop advice for Kharif, Rabi and Zaid based on soil and water.
+- Mandi-price demo table and profit/loss calculator.
+- Crop information, weather lookup and team members section.
+
+Important:
+- Mandi prices are demo/sample data unless a valid official API key is configured.
+- Weather and live prices need internet.
+- Crop suggestions are general guidance only. Confirm local sowing dates and varieties with your local KVK/agriculture officer.

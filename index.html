@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Farmer Sathi – शेतकरी साथी</title>
+<meta name="theme-color" content="#14532d">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="offlineBar" class="offline" hidden role="status" data-i18n="offline"></div>
+
+<header class="top">
+  <a class="brand" href="#home">🌾 <span>Farmer Sathi <small>शेतकरी साथी</small></span></a>
+  <nav id="nav" aria-label="Main">
+    <a href="#home" data-i18n="nav_home"></a>
+    <a href="#select" data-i18n="nav_select"></a>
+    <a href="#prices" data-i18n="nav_prices"></a>
+    <a href="#calc" data-i18n="nav_calc"></a>
+    <a href="#crops" data-i18n="nav_crops"></a>
+    <a href="#weather" data-i18n="nav_weather"></a>
+  </nav>
+  <button id="langBtn" class="btn small" type="button" aria-label="Change language">मराठी</button>
+</header>
+
+<main>
+<section id="home" class="hero">
+  <h1>Farmer Sathi – शेतकरी साथी</h1>
+  <p class="tag" data-i18n="tagline"></p>
+  <p id="summary" class="summary"></p>
+  <div class="cards">
+    <a class="card" href="#prices"><span class="ico">📈</span><h3 data-i18n="nav_prices"></h3><p data-i18n="c_prices"></p></a>
+    <a class="card" href="#calc"><span class="ico">🧮</span><h3 data-i18n="nav_calc"></h3><p data-i18n="c_calc"></p></a>
+    <a class="card" href="#crops"><span class="ico">🌱</span><h3 data-i18n="nav_crops"></h3><p data-i18n="c_crops"></p></a>
+    <a class="card" href="#weather"><span class="ico">⛅</span><h3 data-i18n="nav_weather"></h3><p data-i18n="c_weather"></p></a>
+  </div>
+</section>
+
+<section id="select">
+  <h2 data-i18n="nav_select"></h2>
+  <div class="panel grid">
+    <label><span data-i18n="l_place"></span>
+      <input id="place" type="text" autocomplete="off" data-i18n-ph="ph_place"></label>
+    <label><span data-i18n="l_state"></span><select id="state"></select></label>
+    <label><span data-i18n="l_crop"></span><select id="crop"></select></label>
+    <button id="saveBtn" class="btn" type="button" data-i18n="save"></button>
+  </div>
+  <p id="saveMsg" class="msg" role="status"></p>
+</section>
+
+<section id="prices">
+  <h2 data-i18n="nav_prices"></h2>
+  <div class="demo" data-i18n="demo"></div>
+  <div class="panel grid">
+    <label><span data-i18n="l_crop"></span><select id="fCrop"></select></label>
+    <label><span data-i18n="l_state"></span><select id="fState"></select></label>
+    <button id="liveBtn" class="btn alt" type="button" data-i18n="live"></button>
+  </div>
+  <p id="priceMsg" class="msg" role="status"></p>
+  <div class="scroll">
+    <table>
+      <thead><tr>
+        <th data-i18n="t_market"></th><th data-i18n="t_min"></th><th data-i18n="t_max"></th>
+        <th data-i18n="t_modal"></th><th data-i18n="t_date"></th>
+      </tr></thead>
+      <tbody id="priceBody"></tbody>
+    </table>
+  </div>
+  <p class="note"><span data-i18n="source"></span> <span id="priceSrc"></span></p>
+  <p class="note"><a href="https://agmarknet.gov.in" target="_blank" rel="noopener" data-i18n="agmark"></a></p>
+</section>
+
+<section id="calc">
+  <h2 data-i18n="nav_calc"></h2>
+  <form id="calcForm" class="panel grid" novalidate>
+    <label><span data-i18n="i_qty"></span><input id="qty" type="number" min="0" step="any" inputmode="decimal"></label>
+    <label><span data-i18n="i_price"></span><input id="price" type="number" min="0" step="any" inputmode="decimal"></label>
+    <label><span data-i18n="i_seed"></span><input class="exp" type="number" min="0" step="any" inputmode="decimal"></label>
+    <label><span data-i18n="i_fert"></span><input class="exp" type="number" min="0" step="any" inputmode="decimal"></label>
+    <label><span data-i18n="i_labour"></span><input class="exp" type="number" min="0" step="any" inputmode="decimal"></label>
+    <label><span data-i18n="i_irr"></span><input class="exp" type="number" min="0" step="any" inputmode="decimal"></label>
+    <label><span data-i18n="i_trans"></span><input class="exp" type="number" min="0" step="any" inputmode="decimal"></label>
+    <label><span data-i18n="i_other"></span><input class="exp" type="number" min="0" step="any" inputmode="decimal"></label>
+    <label><span data-i18n="i_margin"></span><input id="margin" type="number" min="0" step="any" value="20" inputmode="decimal"></label>
+    <div class="actions">
+      <button id="calcBtn" class="btn" type="submit" data-i18n="calculate"></button>
+      <button id="resetBtn" class="btn ghost" type="button" data-i18n="reset"></button>
+    </div>
+  </form>
+  <p id="calcErr" class="error" role="alert"></p>
+  <div id="result" class="result" hidden></div>
+</section>
+
+<section id="crops">
+  <h2 data-i18n="nav_crops"></h2>
+  <div id="cropTabs" class="tabs" role="tablist"></div>
+  <div id="cropInfo" class="panel"></div>
+  <p class="note" data-i18n="kvk"></p>
+</section>
+
+
+<section id="season" class="page-section">
+  <h2 data-i18n="nav_season">Season-wise Crop Adviser</h2>
+  <p class="section-intro" data-i18n="season_intro">Choose your season and conditions to see crops that may suit your farm.</p>
+  <div class="panel grid">
+    <label><span data-i18n="season_label">Farming season</span>
+      <select id="seasonSelect">
+        <option value="kharif">Kharif / Monsoon</option>
+        <option value="rabi">Rabi / Winter</option>
+        <option value="zaid">Zaid / Summer</option>
+      </select>
+    </label>
+    <label><span data-i18n="soil_label">Soil type</span>
+      <select id="soilSelect">
+        <option value="any">Any / Not sure</option>
+        <option value="black">Black soil</option>
+        <option value="loamy">Loamy soil</option>
+        <option value="sandy">Sandy / light soil</option>
+      </select>
+    </label>
+    <label><span data-i18n="water_label">Water availability</span>
+      <select id="waterSelect">
+        <option value="rain">Mostly rainfall</option>
+        <option value="limited">Limited irrigation</option>
+        <option value="good">Good irrigation</option>
+      </select>
+    </label>
+    <button id="recommendBtn" class="btn" type="button" data-i18n="recommend">Suggest crops</button>
+  </div>
+  <p class="note" data-i18n="season_disclaimer">Suggestions are general examples. Confirm sowing dates and varieties with your local KVK or agriculture officer.</p>
+  <div id="seasonResults" class="season-results" aria-live="polite"></div>
+</section>
+
+<section id="weather">
+  <h2 data-i18n="nav_weather"></h2>
+  <div class="panel grid">
+    <label><span data-i18n="l_place"></span><input id="wPlace" type="text" data-i18n-ph="ph_place"></label>
+    <button id="wBtn" class="btn" type="button" data-i18n="w_get"></button>
+  </div>
+  <div id="wOut" class="msg" role="status"></div>
+  <p class="note" data-i18n="w_note"></p>
+</section>
+</main>
+
+
+<section id="team" class="page-section">
+  <h2 data-i18n="nav_team">Our Team</h2>
+  <p class="section-intro" data-i18n="team_intro">Farmer Sathi project team</p>
+  <div class="team-grid">
+    <article class="team-card"><div class="team-avatar">SS</div><h3>Shruti Shelke</h3><p data-i18n="team_member">Project Team Member</p></article>
+    <article class="team-card"><div class="team-avatar">VM</div><h3>Vaishnavi Mohite</h3><p data-i18n="team_member">Project Team Member</p></article>
+    <article class="team-card"><div class="team-avatar">JP</div><h3>Janhavi Pawar</h3><p data-i18n="team_member">Project Team Member</p></article>
+    <article class="team-card"><div class="team-avatar">VK</div><h3>Vaishnavi Kekan</h3><p data-i18n="team_member">Project Team Member</p></article>
+  </div>
+</section>
+
+<footer>
+  <h3 data-i18n="f_links"></h3>
+  <ul>
+    <li><a href="https://agmarknet.gov.in" target="_blank" rel="noopener">Agmarknet</a></li>
+    <li><a href="https://enam.gov.in" target="_blank" rel="noopener">e-NAM</a></li>
+    <li><a href="https://pmkisan.gov.in" target="_blank" rel="noopener">PM-KISAN</a></li>
+    <li><a href="https://mausam.imd.gov.in" target="_blank" rel="noopener">IMD Weather</a></li>
+    <li><a href="https://kvk.icar.gov.in" target="_blank" rel="noopener">Krishi Vigyan Kendra (KVK)</a></li>
+    <li><a href="https://mahadbt.maharashtra.gov.in" target="_blank" rel="noopener">MahaDBT</a></li>
+  </ul>
+  <p class="note" data-i18n="f_note"></p>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
